@@ -1,6 +1,5 @@
 package com.example.nasa_test_app_kot.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,18 +12,18 @@ import kotlinx.android.synthetic.main.nasa_item.view.*
 
 class NasaAdapter: RecyclerView.Adapter<NasaAdapter.NasaViewHolder>() {
 
-    var linkList = arrayListOf<Link>()
+    var linkList: List<Link>? = ArrayList()
     set(value) {
         field = value
         notifyDataSetChanged()
     }
-    var datumList = arrayListOf<Datum>()
+    var datumList:List<Datum>? = ArrayList()
     set(value) {
         field = value
         notifyDataSetChanged()
     }
 
-    private val onImageClickListener: OnImageClickListener? = null
+    val onImageClickListener: OnImageClickListener? = null
 
     interface OnImageClickListener {
         fun onImageClick(position: Int)
@@ -37,15 +36,15 @@ class NasaAdapter: RecyclerView.Adapter<NasaAdapter.NasaViewHolder>() {
         return NasaViewHolder(view)
     }
 
-    override fun getItemCount() = linkList.size
+    override fun getItemCount():Int = linkList!!.size
 
     override fun onBindViewHolder(holder: NasaViewHolder, position: Int) {
-        val link = linkList[position]
-        val datum = datumList[position]
+        val link = linkList?.get(position)
+        val datum = datumList?.get(position)
         with(holder) {
-            titleToDetail.text = datum.title
-            descriptionToDetail.text = datum.description
-            Picasso.get().load(link.href).into(holder.imageView)
+            titleToDetail.text = datum?.title
+            descriptionToDetail.text = datum?.description
+            Picasso.get().load(link?.href).into(holder.imageView)
         }
 
     }

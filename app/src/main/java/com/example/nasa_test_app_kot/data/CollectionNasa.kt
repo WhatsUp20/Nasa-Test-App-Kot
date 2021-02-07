@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CollectionNasa (
     @SerializedName("items") @Expose
-    var items: List<Item?>? = null,
+    var items: List<Item>? = null,
     @SerializedName("version")
     @Expose
     val version: String? = null,
