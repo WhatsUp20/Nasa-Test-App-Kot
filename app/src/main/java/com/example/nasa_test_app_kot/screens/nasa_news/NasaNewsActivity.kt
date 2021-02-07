@@ -1,6 +1,8 @@
 package com.example.nasa_test_app_kot.screens.nasa_news
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +13,7 @@ import com.example.nasa_test_app_kot.data.Datum
 import com.example.nasa_test_app_kot.data.Item
 import com.example.nasa_test_app_kot.data.Link
 import com.example.nasa_test_app_kot.data.ObjectCollection
+import com.example.nasa_test_app_kot.screens.NasaDetailActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -33,33 +36,46 @@ class NasaNewsActivity : AppCompatActivity() {
         }
         switchNasa.isChecked = false
 
+        textViewMars.setOnClickListener(View.OnClickListener { v: View? ->
+            updateSwitchState(true)
+            switchNasa.isChecked = true
+        })
+
+        textViewSpace.setOnClickListener(View.OnClickListener { v: View? ->
+            updateSwitchState(false)
+            switchNasa.isChecked = false
+        })
+
     }
 
     private fun updateSwitchState(isMarsSelected: Boolean) {
         if (isMarsSelected) {
             loadMarsData()
-//            setImageClickListener()
+            setImageClickListener()
             textViewMars.setTextColor(resources.getColor(R.color.colorAccent))
             textViewSpace.setTextColor(resources.getColor(R.color.colorWhite))
         } else {
             loadSpaceData()
-//            setImageClickListener()
+            setImageClickListener()
             textViewMars.setTextColor(resources.getColor(R.color.colorWhite))
             textViewSpace.setTextColor(resources.getColor(R.color.colorAccent))
         }
     }
 
-//    private fun setImageClickListener() {
-//        adapter.onImageClickListener { position ->
-//            val link1: Link = adapter.linkList!!.get(position)
-//            val datum1: Datum = adapter.datumList!!.get(position)
-//            val intent = Intent(this, NasaDetailActivity::class.java)
-//            intent.putExtra("image", link1.href)
-//            intent.putExtra(EXTRA_TITLE, datum1.title)
-//            intent.putExtra("desc", datum1.description)
-//            this@NasaNewsActivity.startActivity(intent)
-//        }
-//    }
+    private fun setImageClickListener() {
+        adapter.onImageClickListener = object: NasaAdapter.OnImageClickListener{
+            override fun onImageClick(position: Int) {
+                val link1: Link = adapter.linkList?.get(position)!!
+                val datum1: Datum = adapter.datumList?.get(position)!!
+                val intent = Intent(this@NasaNewsActivity, NasaDetailActivity::class.java)
+                intent.putExtra("image", link1.href)
+                intent.putExtra("title", datum1.title)
+                intent.putExtra("desc", datum1.description)
+                this@NasaNewsActivity.startActivity(intent)
+            }
+
+        }
+    }
 
     private fun loadSpaceData() {
         val disposable = NetworkService.networkApi.getAllSpaceCollections()

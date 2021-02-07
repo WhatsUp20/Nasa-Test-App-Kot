@@ -23,11 +23,8 @@ class NasaAdapter: RecyclerView.Adapter<NasaAdapter.NasaViewHolder>() {
         notifyDataSetChanged()
     }
 
-    val onImageClickListener: OnImageClickListener? = null
+    var onImageClickListener: OnImageClickListener? = null
 
-    interface OnImageClickListener {
-        fun onImageClick(position: Int)
-    }
 
 
 
@@ -41,6 +38,9 @@ class NasaAdapter: RecyclerView.Adapter<NasaAdapter.NasaViewHolder>() {
     override fun onBindViewHolder(holder: NasaViewHolder, position: Int) {
         val link = linkList?.get(position)
         val datum = datumList?.get(position)
+        holder.itemView.setOnClickListener{
+            onImageClickListener?.onImageClick(position)
+        }
         with(holder) {
             titleToDetail.text = datum?.title
             descriptionToDetail.text = datum?.description
@@ -53,8 +53,9 @@ class NasaAdapter: RecyclerView.Adapter<NasaAdapter.NasaViewHolder>() {
         val imageView = itemView.imageView
         val descriptionToDetail = itemView.descriptionToDetail
         val titleToDetail = itemView.titleToDetail
-        val listener = itemView.setOnClickListener {
-            onImageClickListener?.onImageClick(adapterPosition)
-        }
+    }
+
+    interface OnImageClickListener {
+        fun onImageClick(position: Int)
     }
 }
