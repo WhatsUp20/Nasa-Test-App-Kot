@@ -3,6 +3,8 @@ package com.example.nasa_test_app_kot.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nasa_test_app_kot.R
 import com.example.nasa_test_app_kot.data.Datum
@@ -24,9 +26,6 @@ class NasaAdapter: RecyclerView.Adapter<NasaAdapter.NasaViewHolder>() {
     }
 
     var onImageClickListener: OnImageClickListener? = null
-
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NasaViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.nasa_item, parent, false)
@@ -50,9 +49,9 @@ class NasaAdapter: RecyclerView.Adapter<NasaAdapter.NasaViewHolder>() {
     }
 
     inner class NasaViewHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
-        val imageView = itemView.imageView
-        val descriptionToDetail = itemView.descriptionToDetail
-        val titleToDetail = itemView.titleToDetail
+        val imageView: ImageView = itemView.imageView
+        val descriptionToDetail: TextView = itemView.descriptionToDetail
+        val titleToDetail:TextView = itemView.titleToDetail
     }
 
     interface OnImageClickListener {
