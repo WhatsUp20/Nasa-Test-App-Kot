@@ -20,7 +20,7 @@ class NasaPresenter(private var contract: NasaContract?) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { contract?.showProgressBar()}
-            .doFinally { contract?.notShowProgressBar() }
+            .doFinally { contract?.noShowProgressBar() }
             .subscribe({
                 callToGetAllDataFromLists(it)
             }, {
@@ -34,7 +34,7 @@ class NasaPresenter(private var contract: NasaContract?) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { contract?.showProgressBar()}
-            .doFinally { contract?.notShowProgressBar() }
+            .doFinally { contract?.noShowProgressBar() }
             .subscribe({
                 callToGetAllDataFromLists(it)
             }, {

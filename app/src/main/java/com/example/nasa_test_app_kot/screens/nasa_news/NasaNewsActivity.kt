@@ -85,7 +85,7 @@ class NasaNewsActivity : AppCompatActivity(), NasaContract {
         progressBarLoading.visibility = View.VISIBLE
     }
 
-    override fun notShowProgressBar() {
+    override fun noShowProgressBar() {
         progressBarLoading.visibility = View.INVISIBLE
     }
 }

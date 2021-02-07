@@ -7,5 +7,5 @@ interface NasaContract {
     fun showDatumDataFromPresenter(datumList: List<Datum>?)
     fun showListDataFromPresenter(linkList: List<Link>?)
     fun showProgressBar()
-    fun notShowProgressBar()
+    fun noShowProgressBar()
 }
