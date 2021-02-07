@@ -19,6 +19,8 @@ class NasaPresenter(private var contract: NasaContract?) {
         val disposable = NetworkService.networkApi.getAllSpaceCollections()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { contract?.showProgressBar()}
+            .doFinally { contract?.notShowProgressBar() }
             .subscribe({
                 callToGetAllDataFromLists(it)
             }, {
@@ -31,6 +33,8 @@ class NasaPresenter(private var contract: NasaContract?) {
         val disposable = NetworkService.networkApi.getAllMarsCollection()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { contract?.showProgressBar()}
+            .doFinally { contract?.notShowProgressBar() }
             .subscribe({
                 callToGetAllDataFromLists(it)
             }, {
