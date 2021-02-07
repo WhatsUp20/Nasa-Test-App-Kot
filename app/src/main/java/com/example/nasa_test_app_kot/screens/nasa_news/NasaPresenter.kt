@@ -49,12 +49,14 @@ class NasaPresenter(private var contract: NasaContract?) {
         val datum: MutableList<List<Datum>> = mutableListOf()
         val items: List<Item>? = objectCollection.collection?.items
 
+        //Fill link and datum lists data from item list
         items.let {
             if (it != null) {
                 for (i in it.indices) {
                     it[i].links?.let { link.add(it) }
                     it[i].data?.let { datum.add(it) }
 
+                    //Get and add all dates to linkList and datumList
                     val linkListOfAllDates = link.flatten()
                     val datumListOfAllDates = datum.flatten()
 
