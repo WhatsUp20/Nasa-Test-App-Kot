@@ -1,6 +1,8 @@
 package com.example.nasa_test_app_kot.screens.nasa_news
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +12,9 @@ import com.example.nasa_test_app_kot.adapter.NasaAdapter
 import com.example.nasa_test_app_kot.data.Datum
 import com.example.nasa_test_app_kot.data.Link
 import com.example.nasa_test_app_kot.screens.NasaDetailActivity
+import com.example.nasa_test_app_kot.screens.NasaDetailActivity.Companion.EXTRA_DESCRIPTION
+import com.example.nasa_test_app_kot.screens.NasaDetailActivity.Companion.EXTRA_IMAGE
+import com.example.nasa_test_app_kot.screens.NasaDetailActivity.Companion.EXTRA_TITLE
 import kotlinx.android.synthetic.main.nasa_news_activity.*
 
 class NasaNewsActivity : AppCompatActivity(), NasaContract {
@@ -44,7 +49,7 @@ class NasaNewsActivity : AppCompatActivity(), NasaContract {
         if (isMarsSelected) {
             presenter.loadMarsData()
             setImageClickListener()
-            textViewMars.setTextColor(resources.getColor(R.color.colorAccent))
+            textViewSpace.setTextColor(resources.getColor(R.color.colorAccent))
             textViewSpace.setTextColor(resources.getColor(R.color.colorWhite))
         } else {
             presenter.loadSpaceData()
@@ -60,9 +65,9 @@ class NasaNewsActivity : AppCompatActivity(), NasaContract {
                 val link1: Link? = adapter.linkList?.get(position)
                 val datum1: Datum? = adapter.datumList?.get(position)
                 val intent = Intent(this@NasaNewsActivity, NasaDetailActivity::class.java)
-                intent.putExtra("image", link1?.href)
-                intent.putExtra("title", datum1?.title)
-                intent.putExtra("desc", datum1?.description)
+                intent.putExtra(EXTRA_IMAGE, link1?.href)
+                intent.putExtra(EXTRA_TITLE, datum1?.title)
+                intent.putExtra(EXTRA_DESCRIPTION, datum1?.description)
                 this@NasaNewsActivity.startActivity(intent)
             }
         }

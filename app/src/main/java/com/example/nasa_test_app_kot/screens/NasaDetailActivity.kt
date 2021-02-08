@@ -8,19 +8,21 @@ import kotlinx.android.synthetic.main.activity_nasa_detail.*
 
 class NasaDetailActivity : AppCompatActivity() {
 
-    private val EXTRA_IMAGE1 = "image"
-    private val EXTRA_TITLE1 = "title"
-    private val EXTRA_DESCRIPTION1 = "desc"
+    companion object {
+        const val EXTRA_IMAGE = "image"
+        const val EXTRA_TITLE = "title"
+        const val EXTRA_DESCRIPTION = "desc"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nasa_detail)
 
         val intent = intent
-        if (intent != null && intent.hasExtra(EXTRA_IMAGE1) && intent.hasExtra(EXTRA_TITLE1) && intent.hasExtra(EXTRA_DESCRIPTION1)) {
-            val image = intent.getStringExtra(EXTRA_IMAGE1)
-            val title = intent.getStringExtra(EXTRA_TITLE1)
-            val desc = intent.getStringExtra(EXTRA_DESCRIPTION1)
+        if (intent != null && intent.hasExtra(EXTRA_IMAGE) && intent.hasExtra(EXTRA_TITLE) && intent.hasExtra(EXTRA_DESCRIPTION)) {
+            val image = intent.getStringExtra(EXTRA_IMAGE)
+            val title = intent.getStringExtra(EXTRA_TITLE)
+            val desc = intent.getStringExtra(EXTRA_DESCRIPTION)
             Picasso.get().load(image).into(imageViewToDetails)
             textViewTitle.text = title
             textViewDescription.text = desc
